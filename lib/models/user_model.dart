@@ -11,7 +11,7 @@ class UserModel extends Model {
 
   bool isLoading = false;
 
-  void signUp (
+  void signUp(
       {@required Map<String, dynamic> userData,
       @required String pass,
       @required VoidCallback onSuccess,
@@ -47,12 +47,26 @@ class UserModel extends Model {
     notifyListeners();
   }
 
-  void recoverPass() {
-    
+  void signOut() async {
+    await _auth.signOut();
+
+    userData = Map();
+    firebaseUser = null;
+
+    notifyListeners();
+  }
+
+  void recoverPass() {}
+
+  bool isLoggedIn() {
+    return firebaseUser != null;
   }
 
   Future<Null> _saveUserData(Map<String, dynamic> userData) async {
     this.userData = userData;
-    await Firestore.instance.collection("users").document(firebaseUser.uid).setData(userData);
+    await Firestore.instance
+        .collection("users")
+        .document(firebaseUser.uid)
+        .setData(userData);
   }
 }
