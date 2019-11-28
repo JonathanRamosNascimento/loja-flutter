@@ -11,6 +11,9 @@ class UserModel extends Model {
 
   bool isLoading = false;
 
+  static UserModel of(BuildContext context) =>
+    ScopedModel.of<UserModel>(context);
+
   @override
   void addListener(VoidCallback listener){
     super.addListener(listener);
