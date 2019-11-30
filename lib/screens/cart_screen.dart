@@ -87,15 +87,18 @@ class CartScreen extends StatelessWidget {
             return ListView(
               children: <Widget>[
                 Column(
-                  children: model.products.map(
-                    (product) {
-                      return CartTile(product);
-                    }
-                  ).toList(),
+                  children: model.products.map((product) {
+                    return CartTile(product);
+                  }).toList(),
                 ),
                 DiscountCard(),
                 ShipCard(),
-                CartPrice((){})
+                CartPrice(() async {
+                  String orderId = await model.finishOrder();
+                  if (orderId != null) {
+                    print(orderId);
+                  }
+                })
               ],
             );
           }
