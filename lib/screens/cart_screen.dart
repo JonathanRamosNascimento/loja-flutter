@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:lojavirtual/models/cart_model.dart';
 import 'package:lojavirtual/models/user_model.dart';
 import 'package:lojavirtual/screens/login_screen.dart';
+import 'package:lojavirtual/screens/order_screen.dart';
 import 'package:lojavirtual/tiles/cart_tile.dart';
 import 'package:lojavirtual/widgets/cart_price.dart';
 import 'package:lojavirtual/widgets/discount_card.dart';
@@ -14,6 +15,7 @@ class CartScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text("Meu Carrinho"),
+        centerTitle: true,
         actions: <Widget>[
           Container(
             padding: EdgeInsets.only(right: 8),
@@ -96,7 +98,8 @@ class CartScreen extends StatelessWidget {
                 CartPrice(() async {
                   String orderId = await model.finishOrder();
                   if (orderId != null) {
-                    print(orderId);
+                    Navigator.of(context).pushReplacement(MaterialPageRoute(
+                        builder: (context) => OrderScreen(orderId)));
                   }
                 })
               ],
